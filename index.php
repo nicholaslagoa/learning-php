@@ -1,32 +1,17 @@
-<?php
-$categorias = [];
-$categorias[] = 'infantil';
-$categorias[] = 'adolescente';
-$categorias[] = 'adulto';
-$categorias[] = 'idoso';
-//print_r($categorias);
-
-$nome = 'Eduardo';
-$idade = 28;
-/*var_dump($nome);
-var_dump($idade);*/
-
-if($idade >= 6 && $idade <= 12){
-    for($i = 0; $i <= count($categorias)-1; $i++){//detalhe na função count com o -1, sem isso dará erro pois não existe mais indice
-        if($categorias[$i] == 'infantil'){
-            echo "O nadador " . $nome . " compete na categoria infantil";
-        }
-    }
-}else if($idade >= 13 && $idade <= 18){
-    for($i = 0; $i <= count($categorias)-1; $i++){//detalhe na função count com o -1, sem isso dará erro pois não existe mais indice
-        if($categorias[$i] == 'adolescente'){
-            echo "O nadador " . $nome . " compete na categoria adolescente";
-        }
-    }
-}else{
-    for($i = 0; $i <= count($categorias)-1; $i++){//detalhe na função count com o -1, sem isso dará erro pois não existe mais indice
-        if($categorias[$i] == 'adulto'){
-            echo "O nadador " . $nome . " compete na categoria adulto";
-        }
-    }
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Application Form</title>
+    <meta name="author" content="Nicholas Lagoa">
+    <meta name="viewport" content="width-device-width, initial-scale=1">
+</head>
+<body>
+<p>COMPETITOR REGISTRATION FORM</p>
+<form action="script.php" method="post"><!--script.php será responsável por processar os dados que forem enviados dentro desse formulário atráves do method=POST-->
+    <p>Your name: <input type="text" name="nome"/></p><!--atenção nos names para recuperação no script-->
+    <p>Your age: <input type="text" name="idade"/></p>
+    <p><input type="submit" value="Send competitor data"/></p>
+</form>
+</body>
+</html>
