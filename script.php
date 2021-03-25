@@ -1,4 +1,5 @@
 <?php
+session_start();//inicia a sessão para se trabalhar com sessions e precisa ser acima do resto
 $categorias = [];
 $categorias[] = 'infantil';
 $categorias[] = 'adolescente';
@@ -11,44 +12,62 @@ $idade = $_POST['idade'];//post para passar pelo body e a variavel que vai ser r
 //var_dump($idade);
 
 if(empty($nome)){//função PHP que verifica se uma string está preenchida ou não
-    echo 'Name cant be empty';
+    $_SESSION['mensagem-de-erro'] = 'Name cant be empty, please enter a valid name.';//se der return, ele fica no script.php o que é errado
+    header('location: index.php');//aqui, ele retorna para o index por via do comando header que pede uma string 'location: x.php' sendo x o arquivo
     return;
 }
-if(strlen($nome) < 3){//função PHP que verifica a lenght de uma string
-    echo 'Name cant have less than 3 characters';
+else if(strlen($nome) < 3){//função PHP que verifica a lenght de uma string
+    $_SESSION['mensagem-de-erro'] = 'Name cant be that short, please enter a valid name.';//se der return, ele fica no script.php o que é errado
+    header('location: index.php');//aqui, ele retorna para o index por via do comando header que pede uma string 'location: x.php' sendo x o arquivo
     return;
 }
-if(strlen($nome) > 20){
-    echo 'Name is too long';
+else if(strlen($nome) > 20){
+    $_SESSION['mensagem-de-erro'] = 'Name cant be that long, please enter a valid name.';//se der return, ele fica no script.php o que é errado
+    header('location: index.php');//aqui, ele retorna para o index por via do comando header que pede uma string 'location: x.php' sendo x o arquivo
     return;
 }
-if(!is_numeric($idade)){
-    echo 'Age must be a number';
+else if(is_numeric($nome)){
+    $_SESSION['mensagem-de-erro'] = 'Name invalid, please enter a valid name.';
+    header('location: index.php');
     return;
 }
-if($idade > 120 || $idade < 1){
-    echo 'Please type a valid age';
+else if(!is_numeric($idade)){
+    $_SESSION['mensagem-de-erro'] = 'Age invalid, please enter a valid age.';//se der return, ele fica no script.php o que é errado
+    header('location: index.php');//aqui, ele retorna para o index por via do comando header que pede uma string 'location: x.php' sendo x o arquivo
+    return;
+}
+else if($idade > 120 || $idade < 1){
+    $_SESSION['mensagem-de-erro'] = 'Age invalid, please enter a valid age.';//se der return, ele fica no script.php o que é errado
+    header('location: index.php');//aqui, ele retorna para o index por via do comando header que pede uma string 'location: x.php' sendo x o arquivo
     return;
 }
 
 if($idade >= 6 && $idade <= 12){
     for($i = 0; $i <= count($categorias)-1; $i++){//detalhe na função count com o -1, sem isso dará erro pois não existe mais indice
         if($categorias[$i] == 'infantil'){
-            echo "The swimmer " . $nome . " competes in the children's category";
+            $_SESSION['mensagem-de-sucesso'] = "The swimmer " . $nome . " competes in the children's category";
+            header('location: index.php');
+            return;
         }
     }
 }else if($idade >= 13 && $idade <= 18){
     for($i = 0; $i <= count($categorias)-1; $i++){//detalhe na função count com o -1, sem isso dará erro pois não existe mais indice
         if($categorias[$i] == 'adolescente'){
-            echo "The swimmer " . $nome . " competes in the teen category";
+            $_SESSION['mensagem-de-sucesso'] = "The swimmer " . $nome . " competes in the teen category";
+            header('location: index.php');
+            return;
         }
     }
 }else if($idade >= 19 && $idade <= 65){
     for($i = 0; $i <= count($categorias)-1; $i++){//detalhe na função count com o -1, sem isso dará erro pois não existe mais indice
         if($categorias[$i] == 'adulto'){
-            echo "The swimmer " . $nome . " competes in the adult category";
+            $_SESSION['mensagem-de-sucesso'] = "The swimmer " . $nome . " competes in the adult category";
+            header('location: index.php');
+            return;
         }
     }
 }else{
-    echo "The swimmer " . $nome . " cant compete on any category";
+    $_SESSION['mensagem-de-sucesso'] = "The swimmer " . $nome . " cant compete on any category";
+    header('location: index.php');
+    return;
 }
